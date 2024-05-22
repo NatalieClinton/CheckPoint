@@ -32,13 +32,13 @@ const writeDbFile = (data) => {
 };
 
 // GET route to retrieve all notes
-app.get('/api/notes', (req, res) => {
+app.get('./api/notes', (req, res) => {
     const notes = readDbFile();
     res.json(notes);
 });
 
 // POST route to add a new note
-app.post('/api/notes', (req, res) => {
+app.post('./api/notes', (req, res) => {
     const notes = readDbFile();
     const newNote = req.body;
 
@@ -52,7 +52,7 @@ app.post('/api/notes', (req, res) => {
 });
 
 // DELETE route to delete a note by ID
-app.delete('/api/notes/:id', (req, res) => {
+app.delete('./api/notes/:id', (req, res) => {
     const notes = readDbFile();
     const noteId = req.params.id;
 
@@ -65,13 +65,13 @@ app.delete('/api/notes/:id', (req, res) => {
 });
 
 // Serve the notes.html file
-app.get('/notes', (req, res) => {
-    res.sendFile(path.resolve(__dirname, 'public/notes.html'));
+app.get('./notes.html', (req, res) => {
+    res.sendFile(path.resolve(__dirname, './public/notes.html'));
 });
 
 // Serve the index.html file as the landing page
 app.get('/', (req, res) => {
-    res.sendFile(path.resolve(__dirname, 'public/index.html'));
+    res.sendFile(path.resolve(__dirname, './public/index.html'));
 });
 
 // Start the server
