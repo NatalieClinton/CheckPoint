@@ -8,16 +8,20 @@ document.addEventListener('DOMContentLoaded', () => {
   let noteList = document.querySelector('.list-container .list-group');
   let activeNote = {};
 
+  // Show an element
   const show = (elem) => {
     elem.style.display = 'inline';
   };
 
+  // Hide an element
   const hide = (elem) => {
     elem.style.display = 'none';
   };
 
+  // Fetch notes from the server
   const getNotes = () => fetch('/api/notes').then(res => res.json());
 
+  // Save a note to the server
   const saveNote = (note) =>
     fetch('/api/notes', {
       method: 'POST',
@@ -27,6 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
       body: JSON.stringify(note)
     });
 
+  // Delete a note from the server
   const deleteNote = (id) =>
     fetch(`/api/notes/${id}`, {
       method: 'DELETE',
@@ -35,6 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
+  // Handle deleting a note
   const renderActiveNote = () => {
     hide(saveNoteBtn);
 
@@ -63,6 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   };
 
+  // Handle deleting a note
   const handleNoteDelete = (e) => {
     e.stopPropagation();
 
@@ -78,18 +85,18 @@ document.addEventListener('DOMContentLoaded', () => {
       renderActiveNote();
     });
   };
-
+  // Handle viewing a note
   const handleNoteView = (e) => {
     e.preventDefault();
     activeNote = JSON.parse(e.target.parentElement.getAttribute('data-note'));
     renderActiveNote();
   };
-
+  // Handle creating a new note
   const handleNewNoteView = (e) => {
     activeNote = {};
     renderActiveNote();
   };
-
+  // Show/hide the save button based on input fields
   const handleRenderBtns = () => {
     if (!noteTitle.value.trim() || !noteText.value.trim()) {
       hide(saveNoteBtn);
@@ -98,6 +105,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   };
 
+  // Render the list of notes
   const renderNoteList = async (notes) => {
     let jsonNotes = await notes;
     if (window.location.pathname === '/notes') {
@@ -126,8 +134,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   };
 
+  // Get and render notes
   const getAndRenderNotes = () => getNotes().then(renderNoteList);
 
+  // Event listeners
   if (window.location.pathname === '/notes') {
     saveNoteBtn.addEventListener('click', handleNoteSave);
     newNoteBtn.addEventListener('click', handleNewNoteView);
@@ -135,5 +145,6 @@ document.addEventListener('DOMContentLoaded', () => {
     noteForm.addEventListener('input', handleRenderBtns);
   }
 
+  // Initial render of notes
   getAndRenderNotes();
 });

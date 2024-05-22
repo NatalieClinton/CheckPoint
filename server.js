@@ -12,7 +12,7 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Path to the db.json file
-const dbPath = path.resolve(__dirname, 'db/db.json');
+const dbPath = path.resolve(__dirname, '/db/db.json');
 
 // Helper function to read the db.json file
 const readDbFile = () => {
