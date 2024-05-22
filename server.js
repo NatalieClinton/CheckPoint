@@ -2,10 +2,14 @@ const express = require('express');
 const fs = require('fs');
 const path = require('path');
 
-const router = express.Router();
+const app = express();
+const PORT = process.env.PORT || 3000;
+
+// Middleware to parse JSON bodies
+app.use(express.json());
 
 // Path to the db.json file
-const dbPath = path.resolve(__dirname, '../db/db.json');
+const dbPath = path.resolve(__dirname, 'db/db.json');
 
 // Helper function to read the db.json file
 const readDbFile = () => {
@@ -28,13 +32,13 @@ const writeDbFile = (data) => {
 };
 
 // GET route to retrieve all notes
-router.get('/api/notes', (req, res) => {
+app.get('/api/notes', (req, res) => {
     const notes = readDbFile();
     res.json(notes);
 });
 
 // POST route to add a new note
-router.post('/api/notes', (req, res) => {
+app.post('/api/notes', (req, res) => {
     const notes = readDbFile();
     const newNote = req.body;
 
@@ -48,7 +52,7 @@ router.post('/api/notes', (req, res) => {
 });
 
 // DELETE route to delete a note by ID
-router.delete('/api/notes/:id', (req, res) => {
+app.delete('/api/notes/:id', (req, res) => {
     const notes = readDbFile();
     const noteId = req.params.id;
 
@@ -60,14 +64,17 @@ router.delete('/api/notes/:id', (req, res) => {
     res.sendStatus(200);
 });
 
-// GET route to serve the notes.html file
-router.get('/notes', (req, res) => {
-    res.sendFile(path.resolve(__dirname, '../public/notes.html'));
+// Serve the notes.html file
+app.get('/notes', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'public/notes.html'));
 });
 
-// GET route to serve the index.html file as the landing page
-router.get('/', (req, res) => {
-    res.sendFile(path.resolve(__dirname, '../public/index.html'));
+// Serve the index.html file as the landing page
+app.get('/', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'public/index.html'));
 });
 
-module.exports = router;
+// Start the server
+app.listen(PORT, () => {
+    console.log(`Server is running on http://localhost:${PORT}`);
+});
