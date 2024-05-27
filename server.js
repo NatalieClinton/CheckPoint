@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 
 // Middleware to parse JSON bodies
 app.use(express.json());
@@ -12,7 +12,7 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Path to the db.json file
-const dbPath = path.resolve(__dirname, '/db/db.json');
+const dbPath = path.resolve(__dirname, 'db/db.json');
 
 // Helper function to read the db.json file
 const readDbFile = () => {
@@ -68,13 +68,13 @@ app.delete('/api/notes/:id', (req, res) => {
 });
 
 // Serve the notes.html file
-app.get('/notes.html', (req, res) => {
-    res.sendFile(path.resolve(__dirname, '/public/notes.html'));
+app.get('/notes', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'public/notes.html'));
 });
 
 // Serve the index.html file as the landing page
 app.get('/', (req, res) => {
-    res.sendFile(path.resolve(__dirname, '/public/index.html'));
+    res.sendFile(path.resolve(__dirname, 'public/index.html'));
 });
 
 // Start the server
