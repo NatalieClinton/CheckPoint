@@ -109,32 +109,32 @@ const handleNoteSave = () => {
   };
 
 // Render the list of notes
-const renderNoteList = async (notes) => {
-  let jsonNotes = await notes;
-  if (window.location.pathname === '/notes') {
-    noteList.innerHTML = '';
+  const renderNoteList = async (notes) => {
+    let jsonNotes = await notes;
+    if (window.location.pathname === '/notes') {
+      noteList.innerHTML = '';
 
-    const noteListItems = [];
+      const noteListItems = [];
 
-    jsonNotes.forEach((note) => {
-      const li = document.createElement('li');
-      li.classList.add('list-group-item');
-      li.dataset.note = JSON.stringify(note);
+      jsonNotes.forEach((note) => {
+        const li = document.createElement('li');
+        li.classList.add('list-group-item');
+        li.dataset.note = JSON.stringify(note);
 
-      const span = document.createElement('span');
-      span.innerText = note.title;
-      span.addEventListener('click', handleNoteView);
+        const span = document.createElement('span');
+        span.innerText = note.title;
+        span.addEventListener('click', handleNoteView);
 
-      const delBtn = document.createElement('i');
-      delBtn.classList.add('fas', 'fa-trash-alt', 'float-right', 'text-danger', 'delete-note');
-      delBtn.addEventListener('click', handleNoteDelete);
+        const delBtn = document.createElement('i');
+        delBtn.classList.add('fas', 'fa-trash-alt', 'float-right', 'text-danger', 'delete-note');
+        delBtn.addEventListener('click', handleNoteDelete);
 
-      li.append(span, delBtn);
-      noteListItems.push(noteList.appendChild(li));
-    });
+        li.append(span, delBtn);
+        noteListItems.push(li);
+      });
 
-    noteListItems.forEach((note) => noteList.append(note));
-  }
+      noteListItems.forEach((note) => noteList.appendChild(note));
+    }
 };
 
 // Get and render notes
