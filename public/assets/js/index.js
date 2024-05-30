@@ -19,7 +19,13 @@ const hide = (elem) => {
 };
 
 // Fetch notes from the server
-const getNotes = () => fetch('/api/notes').then(res => res.json());
+const getNotes = () =>
+  fetch('/api/notes', {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  });
 
 // Save a note to the server
 const saveNote = (note) =>
