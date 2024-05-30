@@ -10,5 +10,8 @@ To use this application, clone the repository and run `npm install` to install t
 
 Start the application by running `node server.js` in your terminal. Then, open your web browser and navigate to `http://localhost:3000` to access the application.
 
-## Walkthrough Video
-[Walkthrough Video](*insert google link here*)
+## Preview
+
+
+## Live on Render
+https://checkpoint-ca8b.onrender.com 
